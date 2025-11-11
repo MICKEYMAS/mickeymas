@@ -1,0 +1,499 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>$MICKEYMAS - The Christmas Memecoin on Solana 🎄</title>
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        body {
+            font-family: 'Arial', sans-serif;
+            background: linear-gradient(135deg, #1a472a 0%, #0a1f14 100%);
+            color: #fff;
+            overflow-x: hidden;
+        }
+
+        @keyframes snowfall {
+            0% { transform: translateY(-100vh) translateX(0); }
+            100% { transform: translateY(100vh) translateX(100px); }
+        }
+
+        .snow {
+            position: fixed;
+            top: -100vh;
+            width: 10px;
+            height: 10px;
+            background: white;
+            border-radius: 50%;
+            opacity: 0.7;
+            z-index: 0;
+            animation: snowfall linear infinite;
+        }
+
+        header {
+            text-align: center;
+            padding: 60px 20px 40px;
+            position: relative;
+            z-index: 10;
+        }
+
+        .logo {
+            width: 200px;
+            height: 200px;
+            margin: 0 auto 30px;
+            border-radius: 50%;
+            border: 5px solid #FFD700;
+            box-shadow: 0 0 40px rgba(255, 215, 0, 0.6);
+            animation: float 3s ease-in-out infinite;
+        }
+
+        @keyframes float {
+            0%, 100% { transform: translateY(0px); }
+            50% { transform: translateY(-20px); }
+        }
+
+        h1 {
+            font-size: 4em;
+            color: #FFD700;
+            text-shadow: 0 0 20px rgba(255, 215, 0, 0.8);
+            margin-bottom: 10px;
+            font-weight: bold;
+        }
+
+        .tagline {
+            font-size: 1.5em;
+            color: #fff;
+            margin-bottom: 30px;
+            font-style: italic;
+        }
+
+        .cta-buttons {
+            display: flex;
+            gap: 20px;
+            justify-content: center;
+            flex-wrap: wrap;
+            margin-top: 30px;
+        }
+
+        .btn {
+            padding: 18px 40px;
+            font-size: 1.2em;
+            font-weight: bold;
+            border: none;
+            border-radius: 50px;
+            cursor: pointer;
+            text-decoration: none;
+            display: inline-block;
+            transition: all 0.3s ease;
+            box-shadow: 0 5px 20px rgba(0,0,0,0.3);
+        }
+
+        .btn-primary {
+            background: linear-gradient(135deg, #FF0000, #C41E3A);
+            color: white;
+        }
+
+        .btn-primary:hover {
+            transform: translateY(-3px);
+            box-shadow: 0 8px 30px rgba(255, 0, 0, 0.5);
+        }
+
+        .btn-secondary {
+            background: linear-gradient(135deg, #FFD700, #FFA500);
+            color: #1a472a;
+        }
+
+        .btn-secondary:hover {
+            transform: translateY(-3px);
+            box-shadow: 0 8px 30px rgba(255, 215, 0, 0.5);
+        }
+
+        .container {
+            max-width: 1200px;
+            margin: 0 auto;
+            padding: 20px;
+            position: relative;
+            z-index: 10;
+        }
+
+        .info-section {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+            gap: 30px;
+            margin: 60px 0;
+        }
+
+        .card {
+            background: rgba(255, 255, 255, 0.05);
+            backdrop-filter: blur(10px);
+            border: 2px solid rgba(255, 215, 0, 0.3);
+            border-radius: 20px;
+            padding: 30px;
+            transition: all 0.3s ease;
+        }
+
+        .card:hover {
+            transform: translateY(-10px);
+            border-color: #FFD700;
+            box-shadow: 0 10px 40px rgba(255, 215, 0, 0.3);
+        }
+
+        .card h3 {
+            color: #FFD700;
+            font-size: 1.8em;
+            margin-bottom: 15px;
+            text-align: center;
+        }
+
+        .card p, .card ul {
+            font-size: 1.1em;
+            line-height: 1.8;
+            color: #fff;
+        }
+
+        .card ul {
+            list-style: none;
+            padding-left: 0;
+        }
+
+        .card ul li {
+            padding: 8px 0;
+        }
+
+        .card ul li:before {
+            content: "🎄 ";
+            margin-right: 10px;
+        }
+
+        .roadmap {
+            margin: 80px 0;
+            text-align: center;
+        }
+
+        .roadmap h2 {
+            font-size: 3em;
+            color: #FFD700;
+            margin-bottom: 50px;
+            text-shadow: 0 0 20px rgba(255, 215, 0, 0.6);
+        }
+
+        .roadmap-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
+            gap: 30px;
+            margin-top: 40px;
+        }
+
+        .roadmap-item {
+            background: rgba(255, 255, 255, 0.08);
+            border: 2px solid #FFD700;
+            border-radius: 15px;
+            padding: 25px;
+            transition: all 0.3s ease;
+        }
+
+        .roadmap-item:hover {
+            transform: scale(1.05);
+            box-shadow: 0 10px 40px rgba(255, 215, 0, 0.4);
+        }
+
+        .roadmap-item h4 {
+            color: #FF0000;
+            font-size: 1.5em;
+            margin-bottom: 15px;
+        }
+
+        .roadmap-item p {
+            font-size: 1.1em;
+            line-height: 1.6;
+        }
+
+        .tokenomics {
+            background: rgba(255, 255, 255, 0.05);
+            backdrop-filter: blur(10px);
+            border: 2px solid #FFD700;
+            border-radius: 20px;
+            padding: 40px;
+            margin: 60px 0;
+        }
+
+        .tokenomics h2 {
+            color: #FFD700;
+            font-size: 2.5em;
+            text-align: center;
+            margin-bottom: 30px;
+        }
+
+        .tokenomics-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
+            gap: 20px;
+            text-align: center;
+        }
+
+        .stat {
+            padding: 20px;
+            background: rgba(255, 0, 0, 0.1);
+            border-radius: 15px;
+            border: 1px solid rgba(255, 215, 0, 0.3);
+        }
+
+        .stat-number {
+            font-size: 2em;
+            color: #FFD700;
+            font-weight: bold;
+            display: block;
+            margin-bottom: 10px;
+        }
+
+        .stat-label {
+            font-size: 1.1em;
+            color: #fff;
+        }
+
+        .social-section {
+            text-align: center;
+            margin: 80px 0;
+        }
+
+        .social-section h2 {
+            color: #FFD700;
+            font-size: 2.5em;
+            margin-bottom: 30px;
+        }
+
+        .social-links {
+            display: flex;
+            justify-content: center;
+            gap: 30px;
+            flex-wrap: wrap;
+        }
+
+        .social-link {
+            display: inline-block;
+            padding: 15px 30px;
+            background: rgba(255, 255, 255, 0.1);
+            border: 2px solid #FFD700;
+            border-radius: 50px;
+            color: #FFD700;
+            text-decoration: none;
+            font-size: 1.2em;
+            font-weight: bold;
+            transition: all 0.3s ease;
+        }
+
+        .social-link:hover {
+            background: #FFD700;
+            color: #1a472a;
+            transform: translateY(-5px);
+            box-shadow: 0 10px 30px rgba(255, 215, 0, 0.5);
+        }
+
+        .contract-section {
+            background: rgba(255, 0, 0, 0.1);
+            border: 3px solid #FFD700;
+            border-radius: 20px;
+            padding: 40px;
+            margin: 60px 0;
+            text-align: center;
+        }
+
+        .contract-section h2 {
+            color: #FFD700;
+            font-size: 2em;
+            margin-bottom: 20px;
+        }
+
+        .contract-address {
+            background: rgba(0, 0, 0, 0.3);
+            padding: 20px;
+            border-radius: 10px;
+            font-family: 'Courier New', monospace;
+            font-size: 1.2em;
+            color: #FFD700;
+            word-break: break-all;
+            margin: 20px 0;
+        }
+
+        .copy-btn {
+            background: #FFD700;
+            color: #1a472a;
+            border: none;
+            padding: 12px 30px;
+            border-radius: 50px;
+            font-weight: bold;
+            cursor: pointer;
+            font-size: 1.1em;
+            margin-top: 15px;
+            transition: all 0.3s ease;
+        }
+
+        .copy-btn:hover {
+            transform: scale(1.05);
+            box-shadow: 0 5px 20px rgba(255, 215, 0, 0.5);
+        }
+
+        footer {
+            text-align: center;
+            padding: 40px 20px;
+            background: rgba(0, 0, 0, 0.3);
+            margin-top: 80px;
+        }
+
+        footer p {
+            font-size: 1.1em;
+            color: #FFD700;
+        }
+
+        @media (max-width: 768px) {
+            h1 { font-size: 2.5em; }
+            .tagline { font-size: 1.2em; }
+            .btn { padding: 15px 30px; font-size: 1em; }
+            .logo { width: 150px; height: 150px; }
+        }
+    </style>
+</head>
+<body>
+    <script>
+        for(let i = 0; i < 50; i++) {
+            const snow = document.createElement('div');
+            snow.className = 'snow';
+            snow.style.left = Math.random() * 100 + 'vw';
+            snow.style.animationDuration = (Math.random() * 3 + 2) + 's';
+            snow.style.animationDelay = Math.random() * 5 + 's';
+            document.body.appendChild(snow);
+        }
+    </script>
+
+    <header>
+        <div class="logo" style="background: linear-gradient(135deg, #FFD700, #FFA500); display: flex; align-items: center; justify-content: center;">
+            <span style="font-size: 120px;">🎄</span>
+        </div>
+        <h1>$MICKEYMAS</h1>
+        <p class="tagline">🎄 Journey To The MOON 🚀</p>
+        <p class="tagline">The Christmas Memecoin Bringing Festive Cheer to Solana!</p>
+        
+        <div class="cta-buttons">
+            <a href="https://pump.fun" class="btn btn-primary">🎅 BUY ON PUMP.FUN</a>
+            <a href="#tokenomics" class="btn btn-secondary">📊 TOKENOMICS</a>
+        </div>
+    </header>
+
+    <div class="container">
+        <div class="info-section">
+            <div class="card">
+                <h3>🎄 What is $MICKEYMAS?</h3>
+                <p>The most festive memecoin on Solana! Join us on a magical Christmas journey to the moon. Community-driven, transparent, and full of holiday spirit!</p>
+            </div>
+
+            <div class="card">
+                <h3>✅ Safe & Transparent</h3>
+                <ul>
+                    <li>20% founder tokens LOCKED 6 months</li>
+                    <li>80% fair launch on Pump.fun</li>
+                    <li>Liquidity locked permanently</li>
+                    <li>Verified on-chain vesting</li>
+                    <li>Community-first approach</li>
+                </ul>
+            </div>
+
+            <div class="card">
+                <h3>🚀 Why $MICKEYMAS?</h3>
+                <ul>
+                    <li>Festive Christmas theme</li>
+                    <li>Active daily engagement</li>
+                    <li>Transparent founder</li>
+                    <li>Growing community</li>
+                    <li>Memes & holiday vibes</li>
+                </ul>
+            </div>
+        </div>
+
+        <div class="tokenomics" id="tokenomics">
+            <h2>💎 Tokenomics</h2>
+            <div class="tokenomics-grid">
+                <div class="stat">
+                    <span class="stat-number">1B</span>
+                    <span class="stat-label">Total Supply</span>
+                </div>
+                <div class="stat">
+                    <span class="stat-number">80%</span>
+                    <span class="stat-label">Public Sale</span>
+                </div>
+                <div class="stat">
+                    <span class="stat-number">20%</span>
+                    <span class="stat-label">Founder (Locked)</span>
+                </div>
+                <div class="stat">
+                    <span class="stat-number">6 Months</span>
+                    <span class="stat-label">Vesting Cliff</span>
+                </div>
+            </div>
+        </div>
+
+        <div class="roadmap">
+            <h2>🎅 Journey To The MOON</h2>
+            <div class="roadmap-grid">
+                <div class="roadmap-item">
+                    <h4>🎁 Santa's Workshop</h4>
+                    <p>Phase 1: Launch on Pump.fun, build community, spread Christmas cheer!</p>
+                </div>
+
+                <div class="roadmap-item">
+                    <h4>🍬 The Candy Cane Climb</h4>
+                    <p>Phase 2: Reach 1000+ holders, trending on GMGN, viral marketing push!</p>
+                </div>
+
+                <div class="roadmap-item">
+                    <h4>❄️ Tinsel Town Takeover</h4>
+                    <p>Phase 3: CoinGecko & CMC listings, partnerships, community events!</p>
+                </div>
+
+                <div class="roadmap-item">
+                    <h4>😈 Naughty or Nice</h4>
+                    <p>Phase 4: Major exchange listings, massive marketing, MOON landing! 🚀</p>
+                </div>
+            </div>
+        </div>
+
+        <div class="contract-section">
+            <h2>📝 Contract Address</h2>
+            <p>Coming Soon - Launching November 29, 2025</p>
+            <div class="contract-address" id="contractAddress">
+                YOUR_CONTRACT_ADDRESS_HERE
+            </div>
+            <button class="copy-btn" onclick="copyContract()">📋 Copy Address</button>
+            <p style="margin-top: 20px; font-size: 0.9em;">
+                ✅ Vesting Proof: <span style="color: #FFD700;">Verified on Solscan</span>
+            </p>
+        </div>
+
+        <div class="social-section">
+            <h2>🎄 Join The Community</h2>
+            <div class="social-links">
+                <a href="https://twitter.com" class="social-link" target="_blank">🐦 Twitter</a>
+                <a href="https://t.me" class="social-link" target="_blank">💬 Telegram</a>
+                <a href="https://pump.fun" class="social-link" target="_blank">🚀 Pump.fun</a>
+            </div>
+        </div>
+    </div>
+
+    <footer>
+        <p>🎄 $MICKEYMAS - Making Christmas Magical on Solana 🎅</p>
+        <p style="margin-top: 10px; font-size: 0.9em;">Launching November 29, 2025 | Community-First Memecoin</p>
+    </footer>
+
+    <script>
+        function copyContract() {
+            const contractText = document.getElementById('contractAddress').innerText;
+            navigator.clipboard.writeText(contractText);
+            alert('✅ Contract address copied to clipboard!');
+        }
+    </script>
+</body>
+</html>
